@@ -1,5 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import AppLayout from "./components/AppLayout";
+
 import HomePage from "./pages/HomePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
@@ -8,24 +10,29 @@ import AddRecipePage from "./pages/AddRecipePage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/search/:query",
-    element: <SearchResultsPage />,
-  },
-  {
-    path: "/recipe/:recipeId",
-    element: <RecipeDetailPage />,
-  },
-  {
-    path: "/saved-recipes",
-    element: <SavedRecipesPage />,
-  },
-  {
-    path: "/add-recipe",
-    element: <AddRecipePage />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/search/:query",
+        element: <SearchResultsPage />,
+      },
+      {
+        path: "/recipe/:recipeId",
+        element: <RecipeDetailPage />,
+      },
+      {
+        path: "/saved-recipes",
+        element: <SavedRecipesPage />,
+      },
+      {
+        path: "/add-recipe",
+        element: <AddRecipePage />,
+      },
+    ],
   },
 ]);
 
