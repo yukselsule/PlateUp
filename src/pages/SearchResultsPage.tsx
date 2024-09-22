@@ -1,7 +1,17 @@
+import { useSelector } from "react-redux";
+
+import { selectRecipes } from "../slices/recipesSlice";
+
+import RecipeCard from "../components/RecipeCard";
+
 const SearchResultsPage = () => {
+  const recipes = useSelector(selectRecipes);
+
   return (
     <div>
-      <h1>SearchResultsPage</h1>
+      {recipes?.map((recipe) => (
+        <RecipeCard key={recipe.uri} recipe={recipe} />
+      ))}
     </div>
   );
 };
