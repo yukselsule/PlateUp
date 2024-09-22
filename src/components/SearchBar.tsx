@@ -30,7 +30,8 @@ const SearchBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSearch = () => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (input.trim()) {
       dispatch(setQuery(input));
       dispatch(setCategory(selectedCategory));
