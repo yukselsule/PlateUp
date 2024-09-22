@@ -1,6 +1,8 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+import { RootState } from "../store";
 import { fetchRecipeById, fetchRecipesByQuery } from "../services/api";
 import { Recipe } from "../types/recipeTypes";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
@@ -53,5 +55,9 @@ const recipesSlice = createSlice({
       });
   },
 });
+
+export const selectRecipes = (state: RootState) => state.recipes.recipes;
+export const selectSelectedRecipe = (state: RootState) =>
+  state.recipes.selectedRecipe;
 
 export default recipesSlice.reducer;
