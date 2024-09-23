@@ -4,7 +4,6 @@ import { Recipe } from "../types/recipeTypes";
 
 interface SearchQueryState {
   query: string;
-  category: string;
   results: Recipe[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -12,7 +11,6 @@ interface SearchQueryState {
 
 const initialState: SearchQueryState = {
   query: "",
-  category: "All",
   results: [],
   status: "idle",
   error: null,
@@ -25,12 +23,9 @@ const searchQuerySlice = createSlice({
     setQuery: (state, action) => {
       state.query = action.payload;
     },
-    setCategory: (state, action) => {
-      state.category = action.payload;
-    },
   },
 });
 
-export const { setQuery, setCategory } = searchQuerySlice.actions;
+export const { setQuery } = searchQuerySlice.actions;
 
 export default searchQuerySlice.reducer;
