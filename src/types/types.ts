@@ -21,3 +21,9 @@ export type Recipe = {
   mealType?: string[];
   dishType?: string[];
 };
+
+export interface SavedRecipeProps {
+  uri: string;
+  image: string;
+  label: string;
+}
