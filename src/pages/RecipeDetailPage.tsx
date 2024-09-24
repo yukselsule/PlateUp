@@ -1,7 +1,13 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { useParams } from "react-router-dom";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLocalStorageState,
+} from "../hooks/hooks";
 import { getRecipeById, selectSelectedRecipe } from "../slices/recipesSlice";
+import { SavedRecipeProps } from "../types/types";
 
 const safeQuantity = (quantity: number | undefined, yieldValue: number) => {
   return quantity ? (quantity / yieldValue).toFixed(2) : "0.00";
@@ -12,6 +18,10 @@ const RecipeDetailPage = () => {
   const dispatch = useAppDispatch();
   const recipe = useAppSelector(selectSelectedRecipe);
   const [loading, setLoading] = useState(true);
+  const [savedRecipes, setSavedRecipes] = useLocalStorageState(
+    [],
+    "savedRecipes"
+  );
 
   useEffect(() => {
     if (recipeId) {
@@ -46,17 +56,38 @@ const RecipeDetailPage = () => {
   } = recipe.totalNutrients;
   const yieldValue = recipe?.yield || 1;
 
+  function handleSaveRecipe() {
+    const existingRecipe = savedRecipes.find(
+      (savedRecipe: SavedRecipeProps) => savedRecipe.uri === recipe?.uri
+    );
+
+    if (existingRecipe) return;
+
+    const newSavedRecipes = [
+      ...savedRecipes,
+      { uri: recipe?.uri, label: recipe?.label, image: recipe?.image },
+    ];
+    setSavedRecipes(newSavedRecipes);
+  }
+
   return (
     <div>
-      <h1>{recipe.label}</h1>
+      <div>
+        <h1>{recipe.label}</h1>{" "}
+        <span>
+          ( {`${yieldValue} ${yieldValue === 1 ? "serving" : "servings"}`} )
+        </span>
+      </div>
       <img src={recipe.image} alt={recipe.label} />
+      <button onClick={handleSaveRecipe}>
+        <ion-icon name="bookmark-outline"></ion-icon>
+      </button>
       <h3>Ingredients</h3>
       <ul>
         {recipe.ingredientLines.map((ingredient, i) => (
           <li key={i}>{ingredient}</li>
         ))}
       </ul>
-
       <h3>Nutritional Information</h3>
       <ul>
         <li>
@@ -108,7 +139,6 @@ const RecipeDetailPage = () => {
           Potassium: {safeQuantity(K?.quantity, yieldValue)} {K?.unit}
         </li>
       </ul>
-
       <a href={recipe.url} target="_blank" rel="noopener noreferrer">
         Full recipe details
       </a>
