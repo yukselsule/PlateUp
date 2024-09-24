@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../hooks/hooks";
-import { setQuery } from "../slices/searchQuerySlice";
 import { getRecipes } from "../slices/recipesSlice";
+import { setQuery } from "../slices/searchQuerySlice";
 
 const SearchBar = () => {
   const [input, setInput] = useState("");

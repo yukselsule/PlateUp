@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "../store";
 import { fetchRecipeById, fetchRecipesByQuery } from "../services/api";
-import { Recipe } from "../types/recipeTypes";
+import { RootState } from "../store";
+import { Recipe } from "../types/types";
 
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",

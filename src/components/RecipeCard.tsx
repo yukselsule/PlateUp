@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Recipe } from "../types/recipeTypes";
+
+import { SavedRecipeProps } from "../types/types";
 
 interface RecipeCardProps {
-  recipe: Recipe;
+  recipe: SavedRecipeProps;
 }
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {

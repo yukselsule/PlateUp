@@ -1,9 +1,9 @@
-import { Recipe } from "../types/recipeTypes";
+import { Recipe } from "../types/types";
+
+const apiKey = "dc99d607cbde986129e3a57b3f0bca22";
+const appId = "13e8ec47";
 
 export const fetchRecipesByQuery = async (query: string): Promise<Recipe[]> => {
-  const apiKey = "dc99d607cbde986129e3a57b3f0bca22";
-  const appId = "13e8ec47";
-
   const response = await fetch(
     `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${apiKey}&to=10`
   );
@@ -13,9 +13,6 @@ export const fetchRecipesByQuery = async (query: string): Promise<Recipe[]> => {
 };
 
 export const fetchRecipeById = async (uri: string): Promise<Recipe> => {
-  const apiKey = "dc99d607cbde986129e3a57b3f0bca22";
-  const appId = "13e8ec47";
-
   const encodedUri = encodeURIComponent(uri);
   const response = await fetch(
     `https://api.edamam.com/search?r=${encodedUri}&app_id=${appId}&app_key=${apiKey}`

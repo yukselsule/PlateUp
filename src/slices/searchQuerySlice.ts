@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Recipe } from "../types/recipeTypes";
+import { Recipe } from "../types/types";
 
 interface SearchQueryState {
   query: string;
